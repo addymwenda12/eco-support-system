@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$!ba-8anuqy#x44t$il=h9f8oc7gzh@u!s)+*ui1s@+l01!1&1'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -133,5 +137,8 @@ SUPABASE_URL = os.environ.get('SUPABASE_URL')
 SUPABASE_KEY = os.environ.get('SUPABASE_KEY')
 
 # Africa's Talking configuration
-AT_USERNAME = os.environ.get('AT_USERNAME')
-AT_API_KEY = os.environ.get('AT_API_KEY')
+AFRICASTALKING_USERNAME = os.getenv('AFRICASTALKING_USERNAME')
+AFRICASTALKING_API_KEY = os.getenv('AFRICASTALKING_API_KEY')
+
+# Gemini configuration
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
