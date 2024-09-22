@@ -20,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 from energy_data.views import EnergyConsumptionViewSet, SmartMeterViewSet
 from predictive_analytics.views import EnergyPredictionViewSet
 from customer_support.views import ChatSessionViewSet
+from notifications.views import NotificationViewSet
 """
 URLs for the energy data API.
 """
@@ -29,6 +30,7 @@ router.register(r'energy_consumption', EnergyConsumptionViewSet)
 router.register(r'smart_meter', SmartMeterViewSet)
 router.register(r'energy_prediction', EnergyPredictionViewSet)
 router.register(r'chat_sessions', ChatSessionViewSet)
+router.register(r'notifications', NotificationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
