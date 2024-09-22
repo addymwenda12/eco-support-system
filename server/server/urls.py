@@ -19,6 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from energy_data.views import EnergyConsumptionViewSet, SmartMeterViewSet
 from predictive_analytics.views import EnergyPredictionViewSet
+from customer_support.views import ChatSessionViewSet
 """
 URLs for the energy data API.
 """
@@ -27,6 +28,7 @@ router = DefaultRouter()
 router.register(r'energy_consumption', EnergyConsumptionViewSet)
 router.register(r'smart_meter', SmartMeterViewSet)
 router.register(r'energy_prediction', EnergyPredictionViewSet)
+router.register(r'chat_sessions', ChatSessionViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
