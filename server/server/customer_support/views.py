@@ -40,3 +40,18 @@ class ChatSessionViewSet(viewsets.ModelViewSet):
       return Response({'message': bot_response}, status=status.HTTP_200_OK)
     else:
       return Response({'error': 'Failed to send message'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+  # @action(detail=False, methods=['post'])
+  # def start_session(self, request):
+  #   user = request.user
+  #   session = ChatSession.objects.create(user=user, session_id=str(uuid.uuid4()))
+  #   serializer = self.get_serializer(session)
+  #   return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+  # @action(detail=True, methods=['post'])
+  # def end_session(self, request, pk=None):
+  #   session = self.get_object()
+  #   session.end_time = timezone.now()
+  #   session.save()
+  #   serializer = self.get_serializer(session)
+  #   return Response(serializer.data)
