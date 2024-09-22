@@ -12,7 +12,7 @@ class EnergyPrediction(models.Model):
   timestamp = models.DateTimeField(auto_now_add=True)
   predicted_consumption = models.FloatField()
   actual_consumption = models.FloatField(null=True, blank=True)
-  # meter = models.ForeignKey('energy_data.SmartMeter', on_delete=models.CASCADE)
+  meter = models.ForeignKey('energy_data.SmartMeter', on_delete=models.CASCADE)
 
   def __str__(self):
     """

@@ -7,7 +7,7 @@ Module to handle the prediction of energy consumption.
 """
 
 
-def predict_energy_consumption(user_id, prediction_date):
+def predict_energy_consumption(meter_id, prediction_date):
   """
   Predict the energy consumption for a given user and date.
   """
@@ -16,7 +16,7 @@ def predict_energy_consumption(user_id, prediction_date):
   start_date = end_date - timedelta(days=30)
 
   consumption_data = EnergyConsumption.objects.filter(
-    user_id=user_id,
+    meter__meter_id=meter_id,
     timestamp__range=(start_date, end_date)
   ).order_by('timestamp')
 

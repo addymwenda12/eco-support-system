@@ -22,23 +22,23 @@ class EnergyPredictionViewSet(viewsets.ModelViewSet):
     """
     Predict the energy consumption for a given user and date.
     """
-    user_id = request.data.get('user_id')
+    meter_id = request.data.get('meter_id')
     prediction_date_str = request.data.get('prediction_date')
     
-    if not user_id or not prediction_date_str:
-      return Response({'error': 'user_id and prediction_date are required'}, status=status.HTTP_400_BAD_REQUEST)
+    if not meter_id or not prediction_date_str:
+      return Response({'error': 'meter_id and prediction_date are required'}, status=status.HTTP_400_BAD_REQUEST)
     
     try:
       prediction_date = datetime.strptime(prediction_date_str, '%Y-%m-%d').date()
     except ValueError:
       return Response({'error': 'Invalid date format. Please use YYYY-MM-DD'}, status=status.HTTP_400_BAD_REQUEST)
 
-    predicted_consumption = predict_energy_consumption(user_id, prediction_date)
+    predicted_consumption = predict_energy_consumption(meter_id, prediction_date)
     if predicted_consumption is None:
       return Response({'error': 'Not enough data to make a prediction'}, status=status.HTTP_400_BAD_REQUEST)
     
     prediction = EnergyPrediction.objects.create(
-      user_id=user_id,
+      meter_id=meter_id,
       timestamp=prediction_date,
       predicted_consumption=predicted_consumption
     )
@@ -51,10 +51,10 @@ class EnergyPredictionViewSet(viewsets.ModelViewSet):
     """
     Get the predictions for a given user.
     """
-    user_id = request.query_params.get('user_id')
-    if not user_id:
-      return Response({'error': 'User ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+    meter_id = request.query_params.get('meter_id')
+    if not meter_id:
+      return Response({'error': 'Meter ID is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-    predictions = EnergyPrediction.objects.filter(user_id=user_id).order_by('-timestamp')[:7]  # Last 7 predictions
+    predictions = EnergyPrediction.objects.filter(meter_id=meter_id).order_by('-timestamp')[:7]  # Last 7 predictions
     serializer = self.get_serializer(predictions, many=True)
     return Response(serializer.data)
