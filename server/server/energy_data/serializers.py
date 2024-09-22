@@ -5,19 +5,21 @@ Serializers for the energy data API.
 """
 
 
-class EnergyConsumptionSerializer(serializers.ModelSerializer):
-  """
-  Serializer for the EnergyConsumption model.
-  """
-  class Meta:
-    model = EnergyConsumption
-    fields = '__all__'
-
 class SmartMeterSerializer(serializers.ModelSerializer):
   """
   Serializer for the SmartMeter model.
   """
   class Meta:
     model = SmartMeter
-    fields = '__all__'
+    fields = ['id', 'user', 'meter_id', 'last_reading', 'is_active', 'installation_date']
 
+
+class EnergyConsumptionSerializer(serializers.ModelSerializer):
+  """
+  Serializer for the EnergyConsumption model.
+  """
+  meter = SmartMeterSerializer(read_only=True)
+
+  class Meta:
+    model = EnergyConsumption
+    fields = ['id', 'user', 'timestamp', 'consumption', 'meter', 'cost']
