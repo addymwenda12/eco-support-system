@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'energy_data',
+    'predictive_analytics',
+    'customer_support',
+    'notifications',
 ]
 
 MIDDLEWARE = [
