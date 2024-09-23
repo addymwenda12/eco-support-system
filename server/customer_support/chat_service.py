@@ -1,25 +1,26 @@
 import africastalking
 import google.generativeai as genai
 from django.conf import settings
+# from africastalking.SMS import SMS
 
 
 # Initialize AfricasTalking
 africastalking.initialize(
-  username=settings.AFRICASTALKING_USERNAME,
-  api_key=settings.AFRICASTALKING_API_KEY
+    username=settings.AFRICASTALKING_USERNAME,
+    api_key=settings.AFRICASTALKING_API_KEY
 )
-chat = africastalking.Chat
+sms = africastalking.SMS
 
 # Initialize Google Generative AI
 genai.configure(api_key=settings.GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
-def send_message(session_id, message):
+def send_message(phone_number, message):
   """
   Send message to Africa's Talking Chat API
   """
   try:
-    response = chat.send(session_id, message)
+    response = sms.send(message, [phone_number])
     return response
   except Exception as e:
     print(f"Error sending message: {e}")

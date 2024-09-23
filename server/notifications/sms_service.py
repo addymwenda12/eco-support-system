@@ -7,8 +7,8 @@ Service for sending SMS notifications.
 
 # Initialize the AfricasTalking SDK
 africastalking.initialize(
-    username=settings.AFRICAS_TALKING_USERNAME,
-    api_key=settings.AFRICAS_TALKING_API_KEY
+    username=settings.AFRICASTALKING_USERNAME,
+    api_key=settings.AFRICASTALKING_API_KEY
 )
 
 sms = africastalking.SMS
