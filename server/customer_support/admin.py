@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ChatSession, ChatMessage
+from .models import ChatSession, ChatMessage, UserProfile
 
 
 @admin.register(ChatSession)
@@ -19,3 +19,8 @@ class ChatMessageAdmin(admin.ModelAdmin):
     list_display = ('session', 'sender', 'timestamp')
     list_filter = ('sender', 'timestamp')
     search_fields = ('session__session_id', 'message')
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone_number')
+    search_fields = ('user__username', 'phone_number')

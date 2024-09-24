@@ -52,8 +52,15 @@ class ChatSessionViewSet(viewsets.ModelViewSet):
       # Process message with Gemini
       bot_response = process_message(user_message)
 
+      # Check if the session has an associated user
+      if session.user is None:
+        return Response({'error': 'No user associated with this session'}, status=status.HTTP_400_BAD_REQUEST)
+
+      # Retrieve the phone number from the user profile
+      phone_number = session.user.profile.phone_number
+
       # Send bot response to Africa's Talking
-      at_response = send_message(session.session_id, bot_response)
+      at_response = send_message(phone_number, bot_response)
 
       if at_response:
         # Save bot response
