@@ -57,11 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rest_framework',
-    'energy_data',
-    'predictive_analytics',
-    'customer_support',
-    'notifications',
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -147,3 +142,10 @@ AFRICASTALKING_API_KEY = os.getenv('AFRICASTALKING_API_KEY')
 
 # Gemini configuration
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}

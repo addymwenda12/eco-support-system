@@ -35,4 +35,5 @@ router.register(r'notifications', NotificationViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/chat_sessions/<str:pk>/send_message/', ChatSessionViewSet.as_view({'post': 'send_message'}), name='chat-session-send-message'),
 ]
