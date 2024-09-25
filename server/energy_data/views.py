@@ -18,6 +18,11 @@ class SmartMeterViewSet(viewsets.ModelViewSet):
   queryset = SmartMeter.objects.all()
   serializer_class = SmartMeterSerializer
 
+  def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
   def create(self, request, *args, **kwargs):
     """
     Create a new smart meter record.
@@ -45,6 +50,11 @@ class EnergyConsumptionViewSet(viewsets.ModelViewSet):
   """
   queryset = EnergyConsumption.objects.all()
   serializer_class = EnergyConsumptionSerializer
+
+  def list(self, request):
+    queryset = self.get_queryset()
+    serializer = self.get_serializer(queryset, many=True)
+    return Response(serializer.data)
 
   def create(self, request, *args, **kwargs):
     """

@@ -20,20 +20,27 @@ from rest_framework.routers import DefaultRouter
 from energy_data.views import EnergyConsumptionViewSet, SmartMeterViewSet
 from predictive_analytics.views import EnergyPredictionViewSet
 from customer_support.views import ChatSessionViewSet
-from notifications.views import NotificationViewSet
+from notifications.views import NotificationViewSet, send_test_sms
+from django.http import JsonResponse
+
+def health_check(request):
+    return JsonResponse({"status": "healthy"})
+
 """
 URLs for the energy data API.
 """
 
 router = DefaultRouter()
-router.register(r'energy_consumption', EnergyConsumptionViewSet)
-router.register(r'smart_meter', SmartMeterViewSet)
-router.register(r'energy_prediction', EnergyPredictionViewSet)
-router.register(r'chat_sessions', ChatSessionViewSet)
+router.register(r'energy_data', EnergyConsumptionViewSet, basename='energy-data')
+router.register(r'smart-meters', SmartMeterViewSet)
+router.register(r'predictions', EnergyPredictionViewSet)
+router.register(r'chat-sessions', ChatSessionViewSet)
 router.register(r'notifications', NotificationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/chat_sessions/<str:pk>/send_message/', ChatSessionViewSet.as_view({'post': 'send_message'}), name='chat-session-send-message'),
+    path('api/health/', health_check, name='health_check'),
+    path('api/send_test_sms/', send_test_sms, name='send_test_sms'),
 ]

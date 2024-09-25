@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -35,3 +37,20 @@ class NotificationViewSet(viewsets.ModelViewSet):
             return Response({'status': 'Notification sent successfully'}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Failed to send notification'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@csrf_exempt
+def send_test_sms(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+        
+        if not phone_number or not message:
+            return JsonResponse({'error': 'Phone number and message are required'}, status=400)
+        
+        response = send_sms(phone_number, message)
+        if response:
+            return JsonResponse({'status': 'SMS sent successfully', 'response': response}, status=200)
+        else:
+            return JsonResponse({'error': 'Failed to send SMS'}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
