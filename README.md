@@ -93,55 +93,82 @@ High‑level components:
 ### Local Setup
 
 1) Clone
-- git clone https://github.com/mutuiris/eco-support-system.git
-- cd eco-support-system
+- git clone
+  ```bash
+  https://github.com/mutuiris/eco-support-system.git
+  ```
+- cd
+  ```bash
+  eco-support-system
+  ```
 
 2) Create and activate a virtual environment
-- python -m venv .venv
-- source .venv/bin/activate  # Windows: .venv\Scripts\activate
+- ```bash
+  python -m venv .venv
+  ```
+- ```bash
+  source .venv/bin/activate  # Windows: .venv\Scripts\activate
+  ```
 
 3) Install dependencies
-- pip install --upgrade pip
-- pip install -r requirements.txt
+- ```python
+  pip install --upgrade pip
+  ```
+- ```python
+  pip install -r requirements.txt
+  ```
 - If using Poetry or uv, adapt:
-  - poetry install
-  - or: uv pip install -r requirements.txt
-
-4) Optional: build Cython/C++ extensions
-- pip install cython
-- python setup.py build_ext --inplace
-- or modern pyproject builds: pip install .
+  ```python
+    poetry install
+    ```
+  or:
+  ```python
+  uv pip install -r requirements.txt
+  ```
 
 ### Configuration
 
 Create a .env file at the project root and set:
-
-- APP_ENV=development
-- APP_PORT=8000
-- DATABASE_URL=postgresql+psycopg://user:pass@localhost:5432/eco_support
-- REDIS_URL=redis://localhost:6379/0
-- JWT_SECRET=change-me
-- LOG_LEVEL=INFO
-- MODEL_DIR=./models
-- DATA_DIR=./data
+```env
+APP_ENV=development
+APP_PORT=8000
+DATABASE_URL=postgresql+psycopg://user:pass@localhost:5432/eco_support
+REDIS_URL=redis://localhost:6379/0
+JWT_SECRET=change-me
+LOG_LEVEL=INFO
+MODEL_DIR=./models
+DATA_DIR=./data
+```
 
 ### Running the Services
 
 Option A: Without Docker
-- uvicorn server.main:app --host 0.0.0.0 --port 8000 --reload
-- If your entrypoint differs: uvicorn server.app:app ... or python -m server.main
+```python
+uvicorn server.main:app --host 0.0.0.0 --port 8000 --reload
+```
+- If your entrypoint differs: ```python uvicorn server.app:app``` ... or ```python python -m server.main```
 
 Open the interactive API docs at:
-- http://localhost:8000/docs
-- http://localhost:8000/redoc
+```bash
+http://localhost:8000/docs
+```
+```bash
+http://localhost:8000/redoc
+```
 
 Option B: With Docker
-- docker build -t eco-support-system .
-- docker run --env-file .env -p 8000:8000 eco-support-system
-- Or docker compose up if a compose file exists.
+```docker
+docker build -t eco-support-system
+```
+```docker
+docker run --env-file .env -p 8000:8000 eco-support-system
+```
+- Or ```docker compose up``` if a compose file exists.
 
 Health check
-- curl http://localhost:8000/health
+```bash
+curl http://localhost:8000/health
+```
 
 ---
 
